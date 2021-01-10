@@ -228,7 +228,7 @@ namespace MapleStory_Auto_Patcher
                             fileOut.Position = chunk.Item1; // The chunk's offset
                             fileOut.Write(chunk.Item2, 0, chunk.Item2.Length); // Write the chunk data to the file
                             Log(
-                                $"Wrote 0x{chunk.Item2.Length.ToString("X")} at 0x{chunk.Item1.ToString("X")} to {file.Key}");
+                                $"Wrote 0x{chunk.Item2.Length:X} at 0x{chunk.Item1:X} to {file.Key}");
                             fileOut.Flush(); // Flush it out and dispose of the FileStream
                         }
                     } while (chunk == null);
