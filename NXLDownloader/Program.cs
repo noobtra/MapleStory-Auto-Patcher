@@ -121,7 +121,7 @@ namespace MapleStory_Auto_Patcher
             var toDownload = manifest.TotalUncompressedSize;
             long downloaded = 0;
 
-            foreach (var file in fileNames.Where(c => !directories.Contains(c) && c.Value.ChunkHashes.Count > 0))
+            Parallel.ForEach(fileNames.Where(c => !directories.Contains(c) && c.Value.ChunkHashes.Count > 0), (file) =>
             {
                 var filePath = Path.Combine(output, file.Key);
                 Log($"Starting download of {file.Key}");
@@ -236,7 +236,7 @@ namespace MapleStory_Auto_Patcher
                     position += realSize;
                     downloaded += realSize;
                     Log(
-                        $"Downloaded: {(position * 100f / file.Value.FileSize).ToString("0.00")}% {position} / {file.Value.FileSize} total: {(downloaded * 100f / toDownload).ToString("0.00")}% {downloaded} / {toDownload}");
+                        $"Downloaded: {(position * 100f / file.Value.FileSize):0.00}% {position} / {file.Value.FileSize} total: {(downloaded * 100f / toDownload):0.00}% {downloaded} / {toDownload}");
 
                     chunk = null;
                     GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true); // Try to GC if possible
@@ -254,7 +254,7 @@ namespace MapleStory_Auto_Patcher
                 }
 
                 Log($"{file.Key} Total: {writtenSize} Expected: {file.Value.FileSize}");
-            }
+            });
 
             // Exit out of the console message processor
             running = false;
