@@ -45,7 +45,7 @@ namespace MapleStory_Auto_Patcher
                 })).Build();
             while (true)
             {
-                var manifestUrl = await Client.GetStringAsync("http://3.129.199.50/manifest.txt");
+                var manifestUrl = await Client.GetStringAsync("http://52.202.14.176/manifest.txt");
                 var manifestHash = await Client.GetStringAsync(manifestUrl);
                 if (manifestHash != Configuration.GetSection("lastManifestHash").Value)
                 {
